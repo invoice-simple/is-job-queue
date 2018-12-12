@@ -1,0 +1,26 @@
+{
+  "name": "@invoice-simple/is-job-queue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo 'not defined' && exit 1",
+    "prepublish": "tsc",
+    "postinstall": "tsc"
+  },
+  "author": "Saulo Tauil <saulogt@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
+    "@types/node": "^10.12.12",
+    "@types/uuid": "^3.4.4",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "prettier": "^1.15.3",
+    "ts-lint": "^4.5.1",
+    "typescript": "^3.2.2"
+  }
+}
