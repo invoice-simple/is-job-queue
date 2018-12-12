@@ -49,7 +49,7 @@ export class ISQueueManager {
     this.awsSqs = new AWS.SQS(config);
   }
 
-  public receiveMessages(nMessagesMax?: number) {
+  public receiveMessages(nMessagesMax?: number, timeWait?: number) {
     return new Promise<SqsMessage[]>((resolve, reject) => {
       const receiveParams: AWS.SQS.ReceiveMessageRequest = {
         QueueUrl: this.queueUrl /* required */,
@@ -59,7 +59,7 @@ export class ISQueueManager {
         /* more items */
         /* more items */
         VisibilityTimeout: 30,
-        WaitTimeSeconds: 10,
+        WaitTimeSeconds: timeWait || 10,
       };
 
       this.awsSqs.receiveMessage(receiveParams, (err, data: SqsMessageResponse) => {
