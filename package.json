@@ -1,6 +1,6 @@
 {
   "name": "@invoice-simple/is-job-queue",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -11,11 +11,11 @@
   "author": "Saulo Tauil <saulogt@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.0"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
-    "@types/node": "^10.12.12",
+    "@types/node": "^10.12.18",
     "@types/uuid": "^3.4.4",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",

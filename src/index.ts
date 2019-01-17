@@ -93,6 +93,37 @@ export class ISQueueManager {
     });
   }
 
+  /**
+   * Send up to 10 messages to SQS
+   */
+  public sendMessages(messages: Array<{ id: string; body: string }>) {
+    var params: AWS.SQS.SendMessageBatchRequest = {
+      QueueUrl: this.queueUrl,
+
+      Entries: messages.map(body => {
+        const ret: AWS.SQS.SendMessageBatchRequestEntry = {
+          Id: body.id,
+          MessageBody: body.body /* required */,
+          DelaySeconds: 0,
+          //MessageAttributes: { Title: { DataType: 'String' /* required */, StringValue: 'STRING_VALUE' } },
+          MessageDeduplicationId: uuid(), // Don't use deduplication features
+          MessageGroupId: body.id, // Process the messages in any order
+        };
+        return ret;
+      }),
+    };
+
+    return new Promise<AWS.SQS.SendMessageBatchResult>((resolve, reject) => {
+      this.awsSqs.sendMessageBatch(params, function(err, data) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+  }
+
   public deleteMessage(messageHandle: string) {
     return new Promise<any>((resolve, reject) => {
       this.awsSqs.deleteMessage(
