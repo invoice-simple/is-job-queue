@@ -6,8 +6,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "echo 'not defined' && exit 1",
-    "prepublish": "tsc",
-    "postinstall": "tsc"
+    "prepublish": "tsc"
   },
   "author": "Saulo Tauil <saulogt@gmail.com>",
   "license": "ISC",
