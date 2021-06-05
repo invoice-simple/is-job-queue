@@ -38,9 +38,8 @@ export class ISQueueManager {
     const config: AWS.SQS.ClientConfiguration = {};
 
     if (options) {
-      for (let k of ['region', 'accessKeyId', 'secretAccessKey']) {
+      for (let k of ['region', 'accessKeyId', 'secretAccessKey'] as const) {
         if (k in options) {
-          //@ts-ignore
           config[k] = options[k];
         }
       }
