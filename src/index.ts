@@ -1,5 +1,5 @@
 import * as AWS from 'aws-sdk';
-import uuid = require('uuid/v1');
+import { v1 as uuid } from 'uuid';
 
 interface SqsMessage {
   MessageId?: string; //'7155df36-53f9-4202-9ec4-1d7635f3b185',
