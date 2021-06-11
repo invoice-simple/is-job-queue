@@ -26,9 +26,9 @@ interface SqsMessageResponse {
 }
 
 export interface ISQueueManagerOptions {
-  region: string;
-  accessKeyId: string;
-  secretAccessKey: string;
+  region?: string;
+  accessKeyId?: string;
+  secretAccessKey?: string;
   endpoint?: string;
 }
 
