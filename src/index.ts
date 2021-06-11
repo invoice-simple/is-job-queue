@@ -25,10 +25,11 @@ interface SqsMessageResponse {
   Messages?: SqsMessage[];
 }
 
-interface ISQueueManagerOptions {
+export interface ISQueueManagerOptions {
   region: string;
   accessKeyId: string;
   secretAccessKey: string;
+  endpoint?: string;
 }
 
 export class ISQueueManager {
@@ -38,9 +39,10 @@ export class ISQueueManager {
     const config: AWS.SQS.ClientConfiguration = {};
 
     if (options) {
-      for (let k of ['region', 'accessKeyId', 'secretAccessKey'] as const) {
+      for (let k of ['region', 'accessKeyId', 'secretAccessKey', 'endpoint'] as const) {
         if (k in options) {
-          config[k] = options[k];
+          const val = options[k];
+          val && (config[k] = val);
         }
       }
     }
@@ -81,8 +83,8 @@ export class ISQueueManager {
       MessageGroupId: uuid(), // Process the messages in any order
     };
 
-    return new Promise((resolve, reject) => {
-      this.awsSqs.sendMessage(params, function(err, data) {
+    return new Promise<AWS.SQS.SendMessageResult>((resolve, reject) => {
+      this.awsSqs.sendMessage(params, function (err, data) {
         if (err) {
           reject(err);
         } else {
@@ -99,7 +101,7 @@ export class ISQueueManager {
     var params: AWS.SQS.SendMessageBatchRequest = {
       QueueUrl: this.queueUrl,
 
-      Entries: messages.map(body => {
+      Entries: messages.map((body) => {
         const ret: AWS.SQS.SendMessageBatchRequestEntry = {
           Id: body.id,
           MessageBody: body.body /* required */,
@@ -113,7 +115,7 @@ export class ISQueueManager {
     };
 
     return new Promise<AWS.SQS.SendMessageBatchResult>((resolve, reject) => {
-      this.awsSqs.sendMessageBatch(params, function(err, data) {
+      this.awsSqs.sendMessageBatch(params, function (err, data) {
         if (err) {
           reject(err);
         } else {
